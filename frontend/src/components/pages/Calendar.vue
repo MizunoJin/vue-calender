@@ -34,9 +34,9 @@
 <script>
 import { format } from 'date-fns';
 import { mapGetters, mapActions } from 'vuex';
-import EventDetailDialog from './EventDetailDialog';
-import EventFormDialog from './EventFormDialog';
-import { getDefaultStartAndEnd } from '../functions/datetime'
+import EventDetailDialog from '../events/EventDetailDialog';
+import EventFormDialog from '../events/EventFormDialog';
+import { getDefaultStartAndEnd } from '../../functions/datetime';
 
 export default {
   name: 'Calendar',
@@ -64,13 +64,13 @@ export default {
     },
     closeDialog() {
       this.setEvent(null);
-      this.setEditMode(false)
+      this.setEditMode(false);
     },
     initEvent({ date }) {
       date = date.replace(/-/g, '/');
       const [start, end] = getDefaultStartAndEnd(date);
       this.setEvent({ name: '', start, end, timed: true });
-      this.setEditMode(true)
+      this.setEditMode(true);
     },
   },
 };
