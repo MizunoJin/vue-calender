@@ -7,12 +7,14 @@ const state = {
   events: [],
   event: null,
   isEditMode: false,
+  clickedDate: null,
 };
 
 const getters = {
-  events: (state) => state.events.map((event) => serializeEvent(event)),
+  events: (state) => state.events.filter((event) => event.calendar.visibility).map((event) => serializeEvent(event)),
   event: (state) => serializeEvent(state.event),
   isEditMode: (state) => state.isEditMode,
+  clickedDate: (state) => state.clickedDate,
 };
 
 const mutations = {
@@ -23,6 +25,7 @@ const mutations = {
   removeEvent: (state, event) => (state.events = state.events.filter((e) => e.id !== event.id)),
   resetEvent: (state) => (state.event = null),
   updateEvent: (state, event) => (state.events = state.events.map((e) => (e.id === event.id ? event : e))),
+  setClickedDate: (state, date) => (state.clickedDate = date),
 };
 
 const actions = {
@@ -48,6 +51,9 @@ const actions = {
   },
   setEditMode({ commit }, bool) {
     commit('setEditMode', bool);
+  },
+  setClickedDate({ commit }, date) {
+    commit('setClickedDate', date);
   },
 };
 
